@@ -5,8 +5,7 @@
 import addStyleToDOM from 'style-loader/addStyles';
 import createHash from 'murmurhash-js/murmurhash3_gc';
 import prefix from 'inline-style-prefix-all';
-import CSSPropertyOperations from 'react/lib/CSSPropertyOperations';
-import dangerousStyleValue from 'react/lib/dangerousStyleValue';
+import CSSPropertyOperations from 'react-css-property-operations';
 import isArray from 'lodash/isArray';
 import toDashCase from 'lodash/kebabCase';
 import isPlainObject from 'lodash/isPlainObject';
@@ -303,6 +302,15 @@ function compileSelector(id, hash, path) {
   }
 
   return selector;
+}
+
+// TODO: This is inefficient but we only hit this when we encounter arrays in
+// values. Still this will be fixed when we port all packages which use
+// react-dom-stylesheet to react-stylesheet.
+function dangerousStyleValue(key, value) {
+  let markup = CSSPropertyOperations.createMarkupForStyles({[key]: value});
+  let [_key, styleValue] = markup.split(':');
+  return styleValue.slice(0, styleValue.length - 1);
 }
 
 function compileValue(key, value) {

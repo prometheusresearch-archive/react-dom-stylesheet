@@ -61,6 +61,8 @@
     "inline-style-prefix-all": "^2.0.2",
     "lodash": "^4.13.1",
     "murmurhash-js": "^1.0.0",
+    "react-addons-test-utils": "^15.4.1",
+    "react-css-property-operations": "^15.4.1",
     "style-loader": "^0.13.0"
   }
 }
